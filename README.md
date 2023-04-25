@@ -15,14 +15,6 @@ Mobile Navbar bugged
 
 Dark mode Browser not supported
 
-![Team List]('screenshots/list.png')
-
-![Team List mobile]('screenshots/list-mobile.png')
-
-![Team Create]('screenshots/create.png')
-
-![Team Create mobile]('screenshots/create-mobile.png')
-
 ## Getting Started
 
 Setup MYSQL database url in .env file, key DATABASE_URL
@@ -42,9 +34,20 @@ npm run dev
 # or
 pnpm dev
 ```
-
-
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Screenshots
+![Team Create](screenshots/create.png)
+
+
+![Team List](screenshots/list.png)
+
+
+## Mobile view
+
+![Team Create mobile](screenshots/create-mobile.png)
+
+![Team List mobile](screenshots/list-mobile.png)
+
+
 
 
