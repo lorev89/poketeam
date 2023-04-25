@@ -1,7 +1,6 @@
 import {useCallback, useState } from 'react';
 import Router from 'next/router';
 import PokemonCard from '../../components/PokemonCard'
-import TeamController from '@controller/TeamController'
 
 function CreateForm(props) {
   const [teamName, setTeamName] = useState('');
