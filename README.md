@@ -5,7 +5,7 @@ Create pokèmon teams
 ## Features
 Create/Edit/List Team pages
 
-Cached team listing by 'pokèmon type' filter
+Team listing cached by 'pokèmon type' filter
 
 ## Future Improvements
 Pokèmon Trainer personal area
