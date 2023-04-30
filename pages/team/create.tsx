@@ -67,10 +67,20 @@ function CreateForm(props) {
 
   return (
     <div className="App">
-      <div className='grid p-8 justify-center items-center h-screen '>
-        <form className='' onSubmit={submit}>
-          <input className='bg-gray-200 shadow-inner rounded-l p-2 flex-1' id='teamName' name= "teamName" value={teamName} type='text' minLength={1} required aria-label='email address' placeholder='Enter Team name'  onChange={(event) =>setTeamName(event.target.value)}/>
-          <div className="border grid grid-cols-1 md:grid-cols-3 gap-8 justify-between">
+      <div className='grid md:grid-cols-6 p-8 justify-center items-center h-[36vw]'>
+        <div id='button-textbox-wrapper' className="md:col-start-2 md:h-[100%]">
+          <input className='bg-gray-200 shadow-inner rounded p-2 md:mt-36 md:mb-9 mb-3' id='teamName' name= "teamName" value={teamName} type='text' minLength={1} required aria-label='email address' placeholder='Enter Team name'  onChange={(event) =>setTeamName(event.target.value)}/>
+          <div className="md:m-auto md:mb-9 mb-3">
+            <button disabled={formItems.length >= 6} className='bg-red-600 hover:bg-red-700 duration-300 text-white shadow p-2 rounded disabled:opacity-30' onClick={addItem}>
+              Gotta catch &apos;em all!
+            </button>
+          </div>
+          <button className='bg-amber-400 hover:bg-amber-300 duration-300 text-blue shadow p-2 rounded mb-9'  onClick={submit}>
+            Save Team
+          </button>
+        </div>
+        <form className='md:col-start-3 md:col-end-6' onSubmit={submit}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-between">
             {formItems.map((item, index) => {
                 return(
                 <PokemonCard key={index} index={index} pokemon={item} removeCallback = {removeItem}/>
@@ -78,14 +88,6 @@ function CreateForm(props) {
             })}
           </div>
         </form>
-      </div>
-      <div className="absolute bottom-16 right-16 h-16 w-16 ...">
-        <button disabled={formItems.length >= 6} className='bg-red-600 hover:bg-red-700 duration-300 text-white shadow p-2 rounded disabled:opacity-30' onClick={addItem}>
-          Gotta catch&apos;em all
-        </button>
-        <button className='bg-blue-600 hover:bg-blue-700 duration-300 text-white shadow p-2 rounded'  onClick={submit}>
-          Save Team
-        </button>
       </div>
     </div>
   );

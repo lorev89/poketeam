@@ -39,9 +39,9 @@ export default class TeamController{
 
         let teamQuery = await prisma.team.findMany(queryObj);
 
-        teamQuery.forEach(team => {
+        teamQuery.forEach((team:any) => {
         let sumExp = 0
-        team.pokemon.forEach(pokemon=> {
+        team.pokemon.forEach((pokemon:any)=> {
             sumExp += pokemon.baseExperience
         });
         team.sumExperience = sumExp
@@ -67,7 +67,7 @@ export default class TeamController{
     }
 
     public static async update(team: any) {
-        const oldIds = team.pokemon.filter(el =>el.id != undefined).map(el=>{return el.id})
+        const oldIds = team.pokemon.filter((el:any) =>el.id != undefined).map((el:any)=>{return el.id})
         await prisma.pokemon.deleteMany({
             where:{
                     id: {
@@ -77,7 +77,7 @@ export default class TeamController{
                   },
         })
         const deletedPokemon = await prisma.pokemon.delete
-        const pokemon = await PokemonController.createMany(team.pokemon.filter(el =>el.id == undefined), team.id)
+        const pokemon = await PokemonController.createMany(team.pokemon.filter((el:any) =>el.id == undefined), team.id)
 
         const teamObj = await prisma.team.update({
             where: {

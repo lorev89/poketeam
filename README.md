@@ -11,8 +11,6 @@ Cached team listing by 'pokèmon type' filter
 Pokèmon Trainer personal area
 
 ## Known issues
-Mobile Navbar bugged
-
 Dark mode Browser not supported
 
 ## Getting Started
