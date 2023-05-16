@@ -77,7 +77,6 @@ export default class TeamController{
         })
         cacheTags =  [...new Set(cacheTags)];
 
-        console.log('CREATE',cacheTags);
         await CacheController.invalidateMany(cacheTags)
     }
 
@@ -111,7 +110,6 @@ export default class TeamController{
         })
         cacheTags =  [...new Set(cacheTags)];
 
-        console.log('EDIT',cacheTags);
         await CacheController.invalidateMany(cacheTags)
 
         return teamObj.id
