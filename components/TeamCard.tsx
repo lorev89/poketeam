@@ -9,13 +9,19 @@ type Props = {
 }
 
 const TeamCard: FunctionComponent<Props> = ({ index, team, removeCallback}) => (
-    <div key={index}  className="m-top-6 relative grid md:grid-cols-9 grid-cols-1 m-auto md:min-w-[250px]  min-w-[100px] max-w-[70vw] rounded overflow-hidden shadow-lg bg-white hover:bg-grey-200 py-3 px-4">
-        <div className="col-start-1 col-end-2 px-6 py-0 w-[30px] ">
+    <div key={index}  className="m-top-6 relative grid md:grid-cols-11 grid-cols-1 m-auto md:min-w-[250px]  min-w-[100px] max-w-[70vw] rounded overflow-hidden shadow-lg bg-white hover:bg-grey-200 py-3 px-4">
+        <div className="col-start-1 col-end-2 md:col-end-1 px-6 py-0 w-[30px] ">
             <h1 className="font-bold text-xl mb-2 text-transform: capitalize">
                 {team.name}
             </h1>
         </div>
-        <div className='md:col-start-3 md:col-end-8 grid grid-cols-2 md:grid-cols-6 gap-4'>
+        <div className="md:col-start-3 col-end-2 md:col-end-5 grid grid-cols-3 gap-4 justify-between ">
+        {team.types.map((type : any, index : any) => {
+             return(
+                <span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 ">{type.name}</span>
+            )})}
+        </div>
+        <div className='md:col-start-6 md:col-end-11 grid grid-cols-2 md:grid-cols-6 gap-4'>
         {team.pokemon.map((pokemon : any, index : any) => {
             return (
             <div className = 'relative content-center'key={index} >
@@ -25,7 +31,7 @@ const TeamCard: FunctionComponent<Props> = ({ index, team, removeCallback}) => (
             </div>
             )})}
         </div >
-        <div className ='md:col-start-9'>
+        <div className ='md:col-start-11 '>
             Total exp.
             <span className ='rounded-full font-bold text-xl bg-green-500'>
                 {team.sumExperience}

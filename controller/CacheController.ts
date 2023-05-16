@@ -27,19 +27,20 @@ export default class CacheController{
     }
 
     public static async invalidateMany(ids:string[]){
-        /**
-         * workaround : truncate table having error in delete by id
-         */
         try {
-            const tableNAme = 'cache'
-            await prisma.$executeRawUnsafe(`TRUNCATE TABLE ${tableNAme};`)
+
+            await prisma.cache.deleteMany({
+                    where: {
+                        id: {
+                            in: ids
+                        }
+                    }
+
+            });
         } catch (error) {
             console.log({ error })
          }
 
-        /**
-        ids.map(async(id:string) =>{await this.invalidate(id)})
-        */
     }
 
     public static async set(id:string, value:JSON) {

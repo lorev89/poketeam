@@ -14,7 +14,11 @@ export default class TeamController{
 
         let queryObj = {
             include:{
-                pokemon: true,
+                pokemon: {
+                    include:{
+                        types: true,
+                    }
+                },
             },
             orderBy: [
               {
@@ -40,11 +44,14 @@ export default class TeamController{
         let teamQuery = await prisma.team.findMany(queryObj);
 
         teamQuery.forEach((team:any) => {
-        let sumExp = 0
-        team.pokemon.forEach((pokemon:any)=> {
-            sumExp += pokemon.baseExperience
-        });
-        team.sumExperience = sumExp
+            let types:any[] = []
+            let sumExp = 0
+            team.pokemon.forEach((pokemon:any)=> {
+                sumExp += pokemon.baseExperience
+                types= types.concat(pokemon.types)
+            });
+            team.sumExperience = sumExp
+            team.types = [...new Map(types.map(v => [v.id, v])).values()] //remove duplicates
         })
 
         teams = JSON.parse(JSON.stringify(teamQuery))
@@ -62,8 +69,16 @@ export default class TeamController{
 
         const pokemon = await PokemonController.createMany(team.pokemon, teamObj.id)
 
-        //todo invalidate by changed types
-        await CacheController.invalidateMany(['team:list_'])
+        let cacheTags:string[] = ['team:list_']
+        team.pokemon.forEach((pokemon:any)=>{
+            pokemon.types.forEach((type:any) =>{
+                cacheTags.push( 'team:list_'+ type.name)
+            })
+        })
+        cacheTags =  [...new Set(cacheTags)];
+
+        console.log('CREATE',cacheTags);
+        await CacheController.invalidateMany(cacheTags)
     }
 
     public static async update(team: any) {
@@ -88,8 +103,16 @@ export default class TeamController{
             },
         })
 
-        //todo invalidate by changed types
-        await CacheController.invalidateMany(['team:list_'])
+        let cacheTags:string[] = ['team:list_']
+        team.pokemon.forEach((pokemon:any)=>{
+            pokemon.types.forEach((type:any) =>{
+                cacheTags.push( 'team:list_'+ type.name)
+            })
+        })
+        cacheTags =  [...new Set(cacheTags)];
+
+        console.log('EDIT',cacheTags);
+        await CacheController.invalidateMany(cacheTags)
 
         return teamObj.id
     }
